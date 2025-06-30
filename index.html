@@ -93,7 +93,7 @@
         remark: document.getElementById("remarks").value
       };
       console.log("Form Data:", formData); // 調試用
-      fetch("https://script.google.com/macros/s/AKfyby3TTbyqIH97b_SGmm0DTh05WBIa1RyE...", { // 替換為實際 URL
+      fetch("https://script.google.com/macros/s/AKfycbxFzgaQdi3dvC3pvtsNM84zzfw8RZ6DS0YoOtbCR4fydfic_LTqcnWqeQb7_RTA_ZKfdg/exec", { // 替換為實際 URL
         method: "POST",
         body: JSON.stringify(formData),
         headers: { "Content-Type": "application/json" }
