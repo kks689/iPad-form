@@ -7,8 +7,9 @@
     body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; }
     h1 { color: #D32F2F; }
     p { font-size: 16px; }
-    #errorMessage { color: #D32F2F; font-weight: bold; }
-    a { display: inline-block; padding: 10px 20px; background: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
+    #errorMessage { color: #D32F2F; font-weight: bold; word-break: break-all; margin: 10px 0; }
+    .buttons { margin-top: 20px; }
+    a { display: inline-block; padding: 10px 20px; background: #4CAF50; color: white; text-decoration: none; border-radius: 5px; margin: 0 10px; }
     a:hover { background: #45a049; }
   </style>
 </head>
@@ -16,7 +17,10 @@
   <h1>提交失敗</h1>
   <p>很抱歉，您的提交遇到問題，請稍後再試。</p>
   <p id="errorMessage"></p>
-  <p><a href="index.html">返回表單</a></p>
+  <div class="buttons">
+    <a href="index.html">返回表單</a>
+    <a href="#" onclick="window.location.reload();">刷新頁面</a>
+  </div>
 
   <script>
     // 顯示 URL 中的錯誤訊息
