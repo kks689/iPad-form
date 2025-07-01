@@ -1,36 +1,25 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Test Google Login Only</title>
+  <meta charset="utf-8">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <style>
-    body { background: #daf0fa; min-height: 100vh; margin: 0; }
-    .card { display:none; margin: 50px auto; background: #fff; padding: 30px; border-radius: 10px; max-width: 400px; box-shadow:0 4px 20px #0001;}
-    #signin-block {display:flex;justify-content:center;align-items:center;height:100vh;}
-  </style>
 </head>
 <body>
-  <!-- Google Sign-In -->
   <div id="signin-block">
     <div id="g_id_onload"
          data-client_id="726302531311-b93ihdsqd3m46tk7r2okmsirsd6u8i8j.apps.googleusercontent.com"
          data-callback="onSignIn"
          data-auto_prompt="true"></div>
-    <div class="g_id_signin"
-         data-type="standard"
-         data-size="large"></div>
+    <div class="g_id_signin"></div>
   </div>
-  <div class="card" id="mainCard">
-    <h2>你已登入！主頁內容會出現</h2>
-    <p>如果你見到這句，代表 Google 登入 gate 功能 OK！</p>
+  <div id="mainCard" style="display:none;">
+    <h1>登入成功，呢個畫面會顯示！</h1>
   </div>
   <script>
-    // 必須用 function 關鍵字宣告
     function onSignIn(response) {
-      // 你可以加 console.log(response) debug
       document.getElementById('signin-block').style.display = 'none';
       document.getElementById('mainCard').style.display = '';
+      console.log("callback success");
     }
   </script>
 </body>
