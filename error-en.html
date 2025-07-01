@@ -15,7 +15,7 @@
       font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
       background: 
         url('cyberpunk_background.png'),
-        linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
       background-size: 400px 400px, cover;
       background-repeat: repeat, no-repeat;
       background-blend-mode: overlay;
@@ -36,9 +36,9 @@
       width: 100%;
       height: 100%;
       background: 
-        radial-gradient(circle at 20% 80%, rgba(255, 59, 48, 0.2) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(255, 149, 0, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 80%, rgba(255, 99, 71, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 165, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 69, 0, 0.1) 0%, transparent 50%);
       pointer-events: none;
       z-index: -1;
     }
@@ -55,8 +55,8 @@
         0 32px 64px rgba(0, 0, 0, 0.15),
         0 16px 32px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.8),
-        0 0 0 1px rgba(255, 59, 48, 0.3),
-        0 0 20px rgba(255, 59, 48, 0.2);
+        0 0 0 1px rgba(255, 99, 71, 0.3),
+        0 0 20px rgba(255, 99, 71, 0.2);
       position: relative;
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
@@ -69,23 +69,23 @@
       right: -2px;
       bottom: -2px;
       background: linear-gradient(45deg, 
-        rgba(255, 59, 48, 0.4) 0%, 
-        rgba(255, 119, 198, 0.3) 25%, 
-        rgba(255, 149, 0, 0.4) 50%, 
-        rgba(255, 119, 198, 0.3) 75%, 
-        rgba(255, 59, 48, 0.4) 100%);
+        rgba(255, 99, 71, 0.4) 0%, 
+        rgba(255, 165, 0, 0.3) 25%, 
+        rgba(255, 99, 71, 0.4) 50%, 
+        rgba(255, 165, 0, 0.3) 75%, 
+        rgba(255, 99, 71, 0.4) 100%);
       border-radius: 30px;
       z-index: -1;
-      animation: errorGlow 2.5s ease-in-out infinite alternate;
+      animation: errorGlow 2s ease-in-out infinite alternate;
     }
 
     @keyframes errorGlow {
       0% {
-        opacity: 0.5;
+        opacity: 0.6;
         filter: blur(1px);
       }
       100% {
-        opacity: 0.8;
+        opacity: 0.9;
         filter: blur(2px);
       }
     }
@@ -114,7 +114,7 @@
       width: 90px;
       height: 90px;
       margin: 0 auto 2.5rem;
-      background: linear-gradient(135deg, #ff3b30 0%, #ff6b6b 100%);
+      background: linear-gradient(135deg, #ff3b30 0%, #ff4500 100%);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -126,15 +126,12 @@
     }
 
     @keyframes shake {
-      0%, 100% {
-        transform: translateX(0);
-      }
-      10%, 30%, 50%, 70%, 90% {
-        transform: translateX(-5px);
-      }
-      20%, 40%, 60%, 80% {
-        transform: translateX(5px);
-      }
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-10px); }
+      40% { transform: translateX(10px); }
+      60% { transform: translateX(-10px); }
+      80% { transform: translateX(10px); }
+      100% { transform: translateX(0); }
     }
 
     h1 {
@@ -152,14 +149,9 @@
       margin-bottom: 3rem;
     }
 
-    .action-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
     .action-btn {
+      background: linear-gradient(135deg, #007aff 0%, #0051d5 100%);
+      color: #fff;
       border: none;
       border-radius: 20px;
       padding: 1.25rem 2.5rem;
@@ -167,28 +159,13 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-    }
-
-    .primary-btn {
-      background: linear-gradient(135deg, #007aff 0%, #0051d5 100%);
-      color: #fff;
       box-shadow: 0 8px 16px rgba(0, 122, 255, 0.3);
+      margin-bottom: 2rem;
     }
 
-    .primary-btn:hover {
+    .action-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 12px 24px rgba(0, 122, 255, 0.4);
-    }
-
-    .secondary-btn {
-      background: rgba(0, 113, 227, 0.1);
-      color: #0071e3;
-      border: 2px solid rgba(0, 113, 227, 0.2);
-    }
-
-    .secondary-btn:hover {
-      background: rgba(0, 113, 227, 0.15);
-      transform: translateY(-1px);
     }
 
     .action-btn:active {
@@ -253,8 +230,7 @@
         margin-bottom: 2.5rem;
       }
 
-      .action-buttons {
-        gap: 1rem;
+      .action-btn {
         margin-bottom: 1.5rem;
       }
 
@@ -293,9 +269,6 @@
       .action-btn {
         padding: 1rem 2rem;
         font-size: 1.125rem;
-      }
-
-      .action-buttons {
         margin-bottom: 1rem;
       }
 
@@ -303,10 +276,11 @@
         font-size: 1rem;
       }
     }
+  </style>
 </head>
 <body>
     <div class="container">
-      <h1 class="status-title">Form Submission Failed!</h1>
+      <h1 class="status-title">Submission Failed!</h1>
       <p class="status-message">Sorry, an error occurred during submission. Please try again later.</p>
       <p class="redirect-message">You will be redirected to the homepage in <span id="countdown">5</span> seconds...</p>
     </div>
@@ -328,4 +302,5 @@
       window.onload = updateCountdown;
     </script>
 </body>
+</html>
 
