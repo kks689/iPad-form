@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Tablet Borrowing and Return Registration Form</title>
+  <title>Tablet Borrowing/Returning and Issue Reporting Form</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     /* Reset and Base Styles */
@@ -195,7 +195,7 @@
 
     .radio-group {
       display: grid;
-      grid-template-columns: repeat(2, 1fr); /* Adjusted to 2 columns, "Other" removed */
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
     }
 
@@ -406,10 +406,10 @@
 </head>
 <body>
   <div class="container">
-    <button class="lang-switcher" onclick="switchLanguage()">EN</button>
+    <button class="lang-switcher" onclick="switchLanguage()">ZH</button>
     
     <div class="header">
-      <h1>Tablet Borrowing and Return Registration Form</h1>
+      <h1>Tablet Borrowing/Returning and Issue Reporting Form</h1>
       <div class="datetime" id="datetime"></div>
     </div>
 
@@ -418,7 +418,7 @@
       <div class="form-group">
         <label>Registration Type</label>
         <div class="subtitle">
-          For any issues, please contact the administrator
+          Contact the administrator if you have any issues
         </div>
         <div class="radio-container">
           <div class="radio-group">
@@ -434,20 +434,14 @@
         </div>
       </div>
 
-      <!-- Removed Other Reason Section -->
-      <div class="form-group other-section" id="otherSection" style="display: none;">
-        <label>Other Reason</label>
-        <textarea name="other" placeholder="Please describe any iPad issues, e.g., no power, WiFi not connecting, app not opening, etc."></textarea>
-      </div>
-
-      <!-- Name Abbreviation -->
+      <!-- Name Initials -->
       <div class="form-group">
         <label for="name">
-          Name Abbreviation
-          <span class="label-tip">e.g., <strong>cbs</strong> (limited to 2 or more English letters)</span>
+          Name Initials
+          <span class="label-tip">e.g., <strong>cbs</strong> (only 2 or more English letters)</span>
         </label>
-        <input name="name" id="name" required placeholder="Please enter an English abbreviation, e.g., cbs">
-        <div class="hint" id="nameHint">⚠️ Only 2 or more English letters (A-Z, a-z) are allowed, no numbers or symbols</div>
+        <input name="name" id="name" required placeholder="Enter English initials, e.g., cbs">
+        <div class="hint" id="nameHint">⚠️ Only 2 or more English letters (A-Z, a-z), no numbers or symbols</div>
       </div>
 
       <!-- Class -->
@@ -485,7 +479,7 @@
       <!-- Remarks -->
       <div class="form-group">
         <label for="remark">Remarks</label>
-        <textarea name="remark" id="remark" placeholder="Please describe any tablet loss or damage issues here"></textarea>
+        <textarea name="remark" id="remark" placeholder="Please specify if there are issues such as lost or damaged tablets"></textarea>
       </div>
 
       <!-- Submit Button -->
@@ -549,7 +543,7 @@
 
       const timeoutId = setTimeout(() => {
         isTimeout = true;
-        message.textContent = 'Server busy, please try again later';
+        message.textContent = 'Server is busy, please try again later';
         message.classList.add('error');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit';
@@ -566,9 +560,9 @@
         clearTimeout(timeoutId);
         
         if (text.trim() === "OK") {
-          window.location.href = "success-en.html"; // Redirect to English success page
+          window.location.href = "success-en.html";
         } else {
-          window.location.href = "error-en.html"; // Redirect to English error page
+          window.location.href = "error-en.html";
         }
       } catch (error) {
         if (isTimeout) return;
@@ -582,7 +576,7 @@
 
     // Language switch function
     function switchLanguage() {
-      window.location.href = 'index.html'; // Switch back to Chinese version
+      window.location.href = 'index.html';
     }
   </script>
 </body>
