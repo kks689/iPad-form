@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Form Submitted</title>
+  <title>Form Submitted Successfully</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     *, *::before, *::after {
@@ -288,28 +288,34 @@
   </style>
 </head>
 <body>
-    <div class="container">
-      <h1 class="status-title">Form Submitted Successfully!</h1>
-      <p class="status-message">Thank you for your submission. We have received your information.</p>
-      <p class="redirect-message">You will be redirected to the homepage in <span id="countdown">5</span> seconds...</p>
-    </div>
+  <div class="container">
+    <button class="lang-switcher" onclick="switchLanguage()">ZH</button>
+    <div class="success-icon">✓</div>
+    <h1 class="status-title">Form Submitted Successfully!</h1>
+    <p class="description">Thank you for your submission. We have received your information.</p>
+    <button class="action-btn" onclick="window.location.href='index-en.html'">Return to Home</button>
+    <p class="countdown">You will be redirected to the homepage in <span class="countdown-number" id="countdown">5</span> seconds...</p>
+  </div>
 
-    <script>
-      let countdown = 5;
-      const countdownElement = document.getElementById("countdown");
+  <script>
+    let countdown = 5;
+    const countdownElement = document.getElementById("countdown");
 
-      function updateCountdown() {
-        countdownElement.textContent = countdown;
-        if (countdown === 0) {
-          window.location.href = "index-en.html"; // Redirect to homepage
-        } else {
-          countdown--;
-          setTimeout(updateCountdown, 1000);
-        }
+    function updateCountdown() {
+      countdownElement.textContent = countdown;
+      if (countdown === 0) {
+        window.location.href = "index-en.html"; // Redirect to English homepage
+      } else {
+        countdown--;
+        setTimeout(updateCountdown, 1000);
       }
+    }
 
-      window.onload = updateCountdown;
-    </script>
+    function switchLanguage() {
+      window.location.href = 'success.html';
+    }
+
+    window.onload = updateCountdown;
+  </script>
 </body>
 </html>
-
