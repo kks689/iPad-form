@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tablet Borrow/Return & Issue Report Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* 全部 style 原封不動 */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, '微軟正黑體', sans-serif;
+      background: 
+        url('cyberpunk_background.png'),
+        linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-size: 400px 400px, cover;
+      background-repeat: repeat, no-repeat;
+      background-blend-mode: overlay;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem 2rem;
+      color: #1d1d1f;
+      line-height: 1.7;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 4rem 3.5rem;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 
+        0 32px 64px rgba(0, 0, 0, 0.15),
+        0 16px 32px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        0 0 0 1px rgba(120, 119, 198, 0.2),
+        0 0 20px rgba(120, 219, 255, 0.1);
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, 
+        rgba(120, 119, 198, 0.3) 0%, 
+        rgba(255, 119, 198, 0.2) 25%, 
+        rgba(120, 219, 255, 0.3) 50%, 
+        rgba(120, 119, 198, 0.2) 75%, 
+        rgba(255, 119, 198, 0.3) 100%);
+      border-radius: 30px;
+      z-index: -1;
+      animation: cyberpunkGlow 3s ease-in-out infinite alternate;
+    }
+    @keyframes cyberpunkGlow {
+      0% { opacity: 0.5; filter: blur(1px);}
+      100% { opacity: 0.8; filter: blur(2px);}
+    }
+    .lang-switcher {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: rgba(0, 113, 227, 0.1);
+      color: #0071e3;
+      border: none;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .lang-switcher:hover {
+      background: rgba(0, 113, 227, 0.15);
+      transform: translateY(-1px);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1d1d1f;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .datetime {
+      font-size: 1.125rem;
+      color: #86868b;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .subtitle {
+      font-size: 1.25rem;
+      color: #6e6e73;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+      text-align: left;
+    }
+    .form-group {
+      margin-bottom: 3rem;
+    }
+    label {
+      display: block;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 1rem;
+    }
+    .label-tip {
+      font-size: 1rem;
+      color: #86868b;
+      font-weight: 400;
+      margin-left: 0.5rem;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 1.375rem 1.25rem;
+      border: 2px solid #e5e5e7;
+      border-radius: 18px;
+      font-size: 1.25rem;
+      background: #fff;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #0071e3;
+      box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+      transform: translateY(-1px);
+    }
+    select:invalid {
+      color: #86868b;
+    }
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .radio-container {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 24px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .radio-group {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .radio-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      padding: 1.5rem;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid transparent;
+    }
+    .radio-option:hover {
+      background: rgba(255, 255, 255, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    .radio-option input[type="radio"] {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-bottom: 0.5rem;
+      accent-color: #0071e3;
+      cursor: pointer;
+    }
+    .radio-option input[type="radio"]:checked + span {
+      color: #0071e3;
+      font-weight: 700;
+    }
+    .radio-option.selected {
+      background: rgba(0, 113, 227, 0.1);
+      border-color: #0071e3;
+    }
+    .radio-option span {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      transition: color 0.3s ease;
+    }
+    .other-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .submit-btn {
+      background: linear-gradient(135deg, #007aff 0%, #0051d5 100%);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 1.5rem 2.5rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 2rem;
+      box-shadow: 0 8px 16px rgba(0, 122, 255, 0.3);
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 122, 255, 0.4);
+    }
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+    .submit-btn:disabled {
+      background: #86868b;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    .message {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0071e3;
+      min-height: 1.5rem;
+      margin-top: 1rem;
+    }
+    .message.error {
+      color: #ff3b30;
+    }
+    .hint {
+      color: #ff3b30;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+    @media (max-width: 1024px) {
+      .container {
+        max-width: 768px;
+        padding: 3.5rem 3rem;
+      }
+      h1 {
+        font-size: 2.25rem;
+      }
+      .subtitle {
+        font-size: 1.125rem;
+      }
+      label {
+        font-size: 1.125rem;
+      }
+      input, select, textarea {
+        font-size: 1.125rem;
+        padding: 1.25rem 1.125rem;
+      }
+      .submit-btn {
+        font-size: 1.125rem;
+        padding: 1.375rem 2.25rem;
+      }
+    }
+    @media (max-width: 768px) {
+      body {
+        padding: 2rem 1rem;
+      }
+      .container {
+        padding: 3rem 2rem;
+        margin: 1rem;
+        border-radius: 24px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .form-group {
+        margin-bottom: 2.5rem;
+      }
+      .radio-group {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .radio-option {
+        flex-direction: row;
+        justify-content: flex-start;
+        text-align: left;
+        padding: 1.25rem;
+      }
+      .radio-option input[type="radio"] {
+        margin-right: 1rem;
+        margin-bottom: 0;
+      }
+      .lang-switcher {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+    @media (max-width: 480px) {
+      body {
+        padding: 1rem;
+      }
+      .container {
+        padding: 2rem 1.5rem;
+        border-radius: 20px;
+      }
+      h1 {
+        font-size: 1.75rem;
+      }
+      .form-group {
+        margin-bottom: 2rem;
+      }
+      .radio-option {
+        padding: 1rem;
+      }
+      .submit-btn {
+        padding: 1.25rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="lang-switcher" onclick="switchLanguage()">中文</button>
+    <div class="header">
+      <h1>Tablet Borrow/Return & Issue Report Form</h1>
+      <div class="datetime" id="datetime"></div>
+    </div>
+    <form id="regForm" autocomplete="off">
+      <!-- Type -->
+      <div class="form-group">
+        <label>Type</label>
+        <div class="subtitle">
+          If you have any questions, please contact the administrator.
+        </div>
+        <div class="radio-container">
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="type" value="借用" required>
+              <span>Borrow</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="type" value="歸還">
+              <span>Return</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <!-- Other reason -->
+      <div class="form-group other-section" id="otherSection" style="display: none;">
+        <label>Other Reason</label>
+        <textarea name="other" placeholder="Please describe any iPad issue, e.g.: no battery, cannot connect to WiFi, cannot open app, etc."></textarea>
+      </div>
+      <!-- Name Abbreviation -->
+      <div class="form-group">
+        <label for="name">
+          Name Abbreviation
+          <span class="label-tip">e.g.: <strong>cbs</strong> (at least 2 English letters)</span>
+        </label>
+        <input name="name" id="name" required placeholder="Please enter your abbreviation (English letters only), e.g.: cbs">
+        <div class="hint" id="nameHint">⚠️ Only 2 or more English letters (A-Z, a-z) allowed. No numbers or symbols.</div>
+      </div>
+      <!-- Class -->
+      <div class="form-group">
+        <label for="grade">Class</label>
+        <select name="grade" id="grade" required>
+          <option value="" disabled selected>Please select a class</option>
+          <option value="1A">1A</option>
+          <option value="1B">1B</option>
+          <option value="1C">1C</option>
+          <option value="2A">2A</option>
+          <option value="2B">2B</option>
+          <option value="2C">2C</option>
+          <option value="3A">3A</option>
+          <option value="3B">3B</option>
+          <option value="3C">3C</option>
+          <option value="4A">4A</option>
+          <option value="4B">4B</option>
+          <option value="4C">4C</option>
+          <option value="5A">5A</option>
+          <option value="5B">5B</option>
+          <option value="5C">5C</option>
+          <option value="6A">6A</option>
+          <option value="6B">6B</option>
+          <option value="6C">6C</option>
+        </select>
+      </div>
+      <!-- Quantity -->
+      <div class="form-group">
+        <label for="qty">Quantity</label>
+        <input name="qty" id="qty" type="number" min="1" required>
+      </div>
+      <!-- Remark -->
+      <div class="form-group">
+        <label for="remark">Remark</label>
+        <textarea name="remark" id="remark" placeholder="If any tablet is lost or damaged, please specify here."></textarea>
+      </div>
+      <!-- Submit -->
+      <button type="submit" class="submit-btn" id="submitBtn">Submit</button>
+      <div class="message" id="message"></div>
+    </form>
+  </div>
+  <script>
+    const apiUrl = "https://script.google.com/macros/s/AKfycbzmGTGWQ8Q_hiIDMJwytbT4I0OAuHfs-tzybwncWmou7UbaOz7TnLn-a4TTvZIIp5cSNA/exec";
+    function updateTime() {
+      const now = new Date();
+      const formatter = (num) => String(num).padStart(2, '0');
+      document.getElementById("datetime").textContent =
+        `${now.getFullYear()}/${formatter(now.getMonth() + 1)}/${formatter(now.getDate())} ${formatter(now.getHours())}:${formatter(now.getMinutes())}:${formatter(now.getSeconds())}`;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+    document.querySelectorAll('input[name="type"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        document.querySelectorAll('.radio-option').forEach(option => {
+          option.classList.remove('selected');
+        });
+        this.closest('.radio-option').classList.add('selected');
+      });
+    });
+    document.getElementById('name').addEventListener('input', function() {
+      const value = this.value;
+      const hint = document.getElementById('nameHint');
+      if (value && (!/^[A-Za-z]+$/.test(value) || value.length < 2)) {
+        this.setCustomValidity("Please enter 2 or more English letters, e.g.: cbs");
+        hint.style.display = 'block';
+      } else {
+        this.setCustomValidity("");
+        hint.style.display = 'none';
+      }
+    });
+    document.getElementById('regForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const message = document.getElementById('message');
+      const submitBtn = document.getElementById('submitBtn');
+      let isTimeout = false;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      message.textContent = 'Please wait... Submitting';
+      message.classList.remove('error');
+      const timeoutId = setTimeout(() => {
+        isTimeout = true;
+        message.textContent = 'Server busy, please try again later';
+        message.classList.add('error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+      }, 15000);
+      try {
+        const response = await fetch(apiUrl, { method: 'POST', body: formData });
+        const text = await response.text();
+        if (isTimeout) return;
+        clearTimeout(timeoutId);
+        if (text.trim() === "OK") {
+          window.location.href = "en-success.html";
+        } else {
+          window.location.href = "en-error.html";
+        }
+      } catch (error) {
+        if (isTimeout) return;
+        clearTimeout(timeoutId);
+        message.textContent = 'Submission failed, please try again later';
+        message.classList.add('error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+      }
+    });
+    function switchLanguage() {
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
